@@ -1,0 +1,34 @@
+﻿@model Model.departement
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>departement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Département")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_dep)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Région")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reg_dep)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_dep }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

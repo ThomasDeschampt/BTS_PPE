@@ -1,0 +1,40 @@
+﻿@model Model.departement
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>departement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Département")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_dep)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Région")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reg_dep)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

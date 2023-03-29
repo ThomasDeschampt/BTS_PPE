@@ -124,3 +124,9 @@ C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\obj\Debug\FrontCours.csproj.Core
 C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\obj\Debug\FrontCours.csproj.CopyComplete
 C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\obj\Debug\FrontCours.dll
 C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\obj\Debug\FrontCours.pdb
+C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\Model.dll
+C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\ORM_PPE_SLAM.dll
+C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\Model.pdb
+C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\ORM_PPE_SLAM.pdb
+C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\ORM_PPE_SLAM.dll.config
+C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\fr\EntityFramework.SqlServer.resources.dll

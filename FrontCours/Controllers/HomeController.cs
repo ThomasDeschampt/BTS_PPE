@@ -8,11 +8,13 @@ namespace FrontCours.Controllers
 {
     public class HomeController : Controller
     {
+        [AllowAnonymous] //access ouvert a tous
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize] // access limité
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -20,6 +22,7 @@ namespace FrontCours.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

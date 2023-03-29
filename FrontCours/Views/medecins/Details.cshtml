@@ -1,0 +1,66 @@
+﻿@model Model.medecin
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>medecin</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Département")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.departement.nom_dep)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Spécialité")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.specialite.lib_spe)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Nom")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_med)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Prénom")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pre_med)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Adresse")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adr_med)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Téléphone")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tel_med)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_med }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
