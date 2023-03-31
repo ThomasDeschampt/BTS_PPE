@@ -102,3 +102,5 @@ C:\Users\thoma\Desktop\PPE-SLAM\code\Back_PPE_SLAM\Back_PPE_SLAM\bin\EntityFrame
 C:\Users\thoma\Desktop\PPE-SLAM\code\Back_PPE_SLAM\Back_PPE_SLAM\bin\EntityFramework.SqlServer.xml
 C:\Users\thoma\Desktop\PPE-SLAM\code\Back_PPE_SLAM\Back_PPE_SLAM\bin\Model.dll
 C:\Users\thoma\Desktop\PPE-SLAM\code\Back_PPE_SLAM\Back_PPE_SLAM\bin\Model.pdb
+C:\Users\thoma\Desktop\PPE-SLAM\code\Back_PPE_SLAM\Back_PPE_SLAM\bin\fr\EntityFramework.resources.dll
+C:\Users\thoma\Desktop\PPE-SLAM\code\Back_PPE_SLAM\Back_PPE_SLAM\bin\fr\EntityFramework.SqlServer.resources.dll

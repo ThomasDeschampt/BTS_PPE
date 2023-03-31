@@ -130,3 +130,5 @@ C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\Model.pdb
 C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\ORM_PPE_SLAM.pdb
 C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\ORM_PPE_SLAM.dll.config
 C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\fr\EntityFramework.SqlServer.resources.dll
+C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\System.Net.Http.Formatting.dll
+C:\Users\thoma\Desktop\PPE-SLAM\code\FrontCours\bin\System.Net.Http.Formatting.xml

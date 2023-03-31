@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Détails</h2>
 
 <div>
     <h4>departement</h4>
@@ -28,7 +28,54 @@
 
     </dl>
 </div>
+
+@if (Model.medecins.Count != 0)
+{
+    <p>Liste des médecins du départements :</p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Nom")
+            </th>
+            <th>
+                @Html.DisplayName("Prénom")
+            </th>
+            <th>
+                @Html.DisplayName("Adresse")
+            </th>
+            <th>
+                @Html.DisplayName("Téléphone")
+            </th>
+            <th>
+                @Html.DisplayName("Spécialité")
+            </th>
+        </tr>
+
+        @foreach (var item in Model.medecins)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.nom_med)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.pre_med)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.adr_med)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.tel_med)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.specialite.lib_spe)
+                </th>
+            </tr>
+        }
+
+    </table>
+}
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id_dep }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retour", "Index")
 </p>

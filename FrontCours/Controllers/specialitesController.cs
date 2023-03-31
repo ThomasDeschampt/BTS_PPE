@@ -60,36 +60,36 @@ namespace FrontCours.Controllers
             return View(specialite);
         }
 
-        // GET: specialites/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            specialite specialite = await db.specialites.FindAsync(id);
-            if (specialite == null)
-            {
-                return HttpNotFound();
-            }
-            return View(specialite);
-        }
+        //// GET: specialites/Edit/5
+        //public async Task<ActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    specialite specialite = await db.specialites.FindAsync(id);
+        //    if (specialite == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(specialite);
+        //}
 
         // POST: specialites/Edit/5
         // Pour vous protéger des attaques par survalidation, activez les propriétés spécifiques auxquelles vous souhaitez vous lier. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id_spe,lib_spe")] specialite specialite)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(specialite).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(specialite);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Edit([Bind(Include = "id_spe,lib_spe")] specialite specialite)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(specialite).State = EntityState.Modified;
+        //        await db.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(specialite);
+        //}
 
         // GET: specialites/Delete/5
         public async Task<ActionResult> Delete(int? id)

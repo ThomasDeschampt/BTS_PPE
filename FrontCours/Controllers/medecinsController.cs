@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Model;
 using ORM_PPE_SLAM;
+using System.Net.Http;
 
 namespace FrontCours.Controllers
 {
@@ -19,8 +20,24 @@ namespace FrontCours.Controllers
         // GET: medecins
         public async Task<ActionResult> Index()
         {
-            var medecins = db.medecins.Include(m => m.departement).Include(m => m.specialite);
-            return View(await medecins.ToListAsync());
+                // url de l'api
+                string url = "https://localhost:44345/api/medecins";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("token", "123456789");
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new Exception();
+                    }
+
+                    var liste = await response.Content.ReadAsAsync<IEnumerable<medecin>>();
+
+                    return View(liste);
+
+                }
         }
 
         // GET: medecins/Details/5

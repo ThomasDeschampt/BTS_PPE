@@ -55,6 +55,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Back_PPE_SLAM\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -205,6 +208,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Src\logo.png" />
+    <Content Include="Views\specialites\Edit.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -217,7 +221,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -246,13 +249,8 @@
     <Content Include="Views\medecins\Index.cshtml" />
     <Content Include="Views\specialites\Create.cshtml" />
     <Content Include="Views\specialites\Delete.cshtml" />
-    <Content Include="Views\specialites\Details.cshtml" />
-    <Content Include="Views\specialites\Edit.cshtml" />
     <Content Include="Views\specialites\Index.cshtml" />
-    <Content Include="Views\departements\Create.cshtml" />
-    <Content Include="Views\departements\Delete.cshtml" />
     <Content Include="Views\departements\Details.cshtml" />
-    <Content Include="Views\departements\Edit.cshtml" />
     <Content Include="Views\departements\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
