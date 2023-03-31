@@ -20,6 +20,52 @@
 
     </dl>
 </div>
+
+@if (Model.medecins.Count != 0)
+{
+<p>Liste des médecins de la spécialité :</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Nom")
+        </th>
+        <th>
+            @Html.DisplayName("Prénom")
+        </th>
+        <th>
+            @Html.DisplayName("Adresse")
+        </th>
+        <th>
+            @Html.DisplayName("Téléphone")
+        </th>
+        <th>
+            @Html.DisplayName("Départements")
+        </th>
+    </tr>
+
+    @foreach (var item in Model.medecins)
+    {
+    <tr>
+        <th>
+            @Html.DisplayFor(modelItem => item.nom_med)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.pre_med)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.adr_med)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.tel_med)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.departement.nom_dep)
+        </th>
+    </tr>
+    }
+</table>
+}
+
 <p>
     @Html.ActionLink("Éditer", "Edit", new { id = Model.id_spe }) |
     @Html.ActionLink("Retour", "Index")
