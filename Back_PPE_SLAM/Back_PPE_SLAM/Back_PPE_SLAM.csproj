@@ -141,6 +141,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -162,6 +163,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\specialites1\Create.cshtml" />
+    <Content Include="Views\specialites1\Delete.cshtml" />
+    <Content Include="Views\specialites1\Details.cshtml" />
+    <Content Include="Views\specialites1\Edit.cshtml" />
+    <Content Include="Views\specialites1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

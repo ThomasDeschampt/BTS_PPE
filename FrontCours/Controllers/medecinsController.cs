@@ -56,6 +56,7 @@ namespace FrontCours.Controllers
         }
 
         // GET: medecins/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep");
@@ -83,6 +84,7 @@ namespace FrontCours.Controllers
         }
 
         // GET: medecins/Edit/5
+        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -118,6 +120,7 @@ namespace FrontCours.Controllers
         }
 
         // GET: medecins/Delete/5
+        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
