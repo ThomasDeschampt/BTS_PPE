@@ -10,6 +10,9 @@ using System.Web.Mvc;
 using Model;
 using ORM_PPE_SLAM;
 using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
+using FrontCours.Models;
 
 namespace FrontCours.Controllers
 {
@@ -20,39 +23,52 @@ namespace FrontCours.Controllers
         // GET: medecins
         public async Task<ActionResult> Index()
         {
-                // url de l'api
-                string url = "https://localhost:44345/api/medecins";
+            // url de l'api
+            string url = "https://localhost:44345/api/medecins";
 
-                using (HttpClient client = new HttpClient())
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("token", "123456789");
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    client.DefaultRequestHeaders.Add("token", "123456789");
-                    HttpResponseMessage response = await client.GetAsync(url);
-
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        throw new Exception();
-                    }
-
-                    var liste = await response.Content.ReadAsAsync<IEnumerable<medecin>>();
-
-                    return View(liste);
-
+                    throw new Exception();
                 }
+
+                var liste = await response.Content.ReadAsAsync<IEnumerable<medecin>>();
+
+                return View(liste);
+
+            }
         }
 
         // GET: medecins/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            medecin medecin = await db.medecins.FindAsync(id);
-            if (medecin == null)
+
+            // url de l'api
+            string url = "https://localhost:44345/api/medecins/" + id;
+
+            using (HttpClient client = new HttpClient())
             {
-                return HttpNotFound();
+                client.DefaultRequestHeaders.Add("token", "123456789");
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception();
+
+                var medecin = await response.Content.ReadAsAsync<medecin>();
+                ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
+                ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
+                return View(medecin);
             }
-            return View(medecin);
+
         }
 
         // GET: medecins/Create
@@ -73,13 +89,29 @@ namespace FrontCours.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.medecins.Add(medecin);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+                string json = JsonConvert.SerializeObject(medecin);
 
-            ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
-            ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("token", "123456789");
+                    using (var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:44345/api/medecins"))
+                    {
+                        request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                        var reponse = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+
+                        if (!reponse.IsSuccessStatusCode)
+                        {
+                            throw new Exception();
+                        }
+
+                        reponse.EnsureSuccessStatusCode();
+                        ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
+                        ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
             return View(medecin);
         }
 
@@ -87,19 +119,31 @@ namespace FrontCours.Controllers
         [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            medecin medecin = await db.medecins.FindAsync(id);
-            if (medecin == null)
+
+            // url de l'api
+            string url = "https://localhost:44345/api/medecins/" + id;
+
+            using (HttpClient client = new HttpClient())
             {
-                return HttpNotFound();
+                client.DefaultRequestHeaders.Add("token", "123456789");
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception();
+
+                var medecin = await response.Content.ReadAsAsync<medecin>();
+                ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
+                ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
+                return View(medecin);
             }
-            ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
-            ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
-            return View(medecin);
+
         }
+    
 
         // POST: medecins/Edit/5
         // Pour vous protéger des attaques par survalidation, activez les propriétés spécifiques auxquelles vous souhaitez vous lier. Pour 
@@ -110,12 +154,25 @@ namespace FrontCours.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(medecin).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                string json = JsonConvert.SerializeObject(medecin);
+                
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("token", "123456789");
+                    HttpContent cont = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var send = await client.PutAsync("https://localhost:44345/api/medecins/" + medecin.id_med, cont).ConfigureAwait(false);
+                    if (!send.IsSuccessStatusCode)
+                        throw new Exception();
+
+                    send.EnsureSuccessStatusCode();
+                    ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
+                    ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
+
+                    return RedirectToAction("Index");
+                    
+                }
             }
-            ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
-            ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
             return View(medecin);
         }
 
@@ -123,26 +180,43 @@ namespace FrontCours.Controllers
         [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
+            string url = "https://localhost:44345/api/medecins/" + id;
+
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            medecin medecin = await db.medecins.FindAsync(id);
-            if (medecin == null)
+
+            using (HttpClient client = new HttpClient())
             {
-                return HttpNotFound();
+                client.DefaultRequestHeaders.Add("token", "123456789");
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception();
+
+                var medecin = await response.Content.ReadAsAsync<medecin>();
+                return View(medecin);
             }
-            return View(medecin);
         }
 
         // POST: medecins/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            medecin medecin = await db.medecins.FindAsync(id);
-            db.medecins.Remove(medecin);
-            await db.SaveChangesAsync();
+            string url = "https://localhost:44345/api/medecins/" + id;
+
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("token", "123456789");
+                HttpResponseMessage response = await client.DeleteAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception();
+            }
             return RedirectToAction("Index");
         }
 

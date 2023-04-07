@@ -38,6 +38,7 @@ namespace Back_PPE_SLAM.Controllers
         }
 
         // PUT: api/specialites/5
+        [Authentification]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putspecialite(int id, specialite specialite)
         {
@@ -73,6 +74,7 @@ namespace Back_PPE_SLAM.Controllers
         }
 
         // POST: api/specialites
+        [Authentification]
         [ResponseType(typeof(specialite))]
         public async Task<IHttpActionResult> Postspecialite(specialite specialite)
         {
@@ -88,6 +90,7 @@ namespace Back_PPE_SLAM.Controllers
         }
 
         // DELETE: api/specialites/5
+        [Authentification]
         [ResponseType(typeof(specialite))]
         public async Task<IHttpActionResult> Deletespecialite(int id)
         {

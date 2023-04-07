@@ -14,7 +14,7 @@ namespace FrontCours.Controllers
             return View();
         }
 
-        [Authorize] // access limité
+        [AllowAnonymous] // access limité
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

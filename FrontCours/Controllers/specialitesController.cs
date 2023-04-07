@@ -9,6 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 using Model;
 using ORM_PPE_SLAM;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace FrontCours.Controllers
 {
@@ -19,25 +22,50 @@ namespace FrontCours.Controllers
         // GET: specialites
         public async Task<ActionResult> Index()
         {
-            return View(await db.specialites.ToListAsync());
+            // url de l'api
+            string url = "https://localhost:44345/api/specialites";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("token", "123456789");
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception();
+                }
+
+                var liste = await response.Content.ReadAsAsync<IEnumerable<specialite>>();
+
+                return View(liste);
+
+            }
         }
 
         // GET: specialites/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            if (id == null)
+            // url de l'api
+            string url = "https://localhost:44345/api/specialites/"+id;
+
+            using (HttpClient client = new HttpClient())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //client.DefaultRequestHeaders.Add("token", "123456789");
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception();
+                }
+
+                var spe = await response.Content.ReadAsAsync<specialite>();
+
+                return View(spe);
             }
-            specialite specialite = await db.specialites.FindAsync(id);
-            if (specialite == null)
-            {
-                return HttpNotFound();
-            }
-            return View(specialite);
         }
 
         // GET: specialites/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -52,11 +80,26 @@ namespace FrontCours.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.specialites.Add(specialite);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+                string json = JsonConvert.SerializeObject(specialite);
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("token", "123456789");
+                    using (var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:44345/api/specialites"))
+                    {
+                        request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
+                        var reponse = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+
+                        if (!reponse.IsSuccessStatusCode)
+                        {
+                            throw new Exception();
+                        }
+
+                        reponse.EnsureSuccessStatusCode();
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
             return View(specialite);
         }
 
@@ -92,28 +135,48 @@ namespace FrontCours.Controllers
         //}
 
         // GET: specialites/Delete/5
+        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
+            string url = "https://localhost:44345/api/specialites/" + id;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            specialite specialite = await db.specialites.FindAsync(id);
-            if (specialite == null)
+
+            using (HttpClient client = new HttpClient())
             {
-                return HttpNotFound();
+                client.DefaultRequestHeaders.Add("token", "123456789");
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception();
+
+                var spe = await response.Content.ReadAsAsync<specialite>();
+                return View(spe);
             }
-            return View(specialite);
         }
 
         // POST: specialites/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            specialite specialite = await db.specialites.FindAsync(id);
-            db.specialites.Remove(specialite);
-            await db.SaveChangesAsync();
+            string url = "https://localhost:44345/api/specialites/" + id;
+
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("token", "123456789");
+                HttpResponseMessage response = await client.DeleteAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception();
+            }
             return RedirectToAction("Index");
         }
 

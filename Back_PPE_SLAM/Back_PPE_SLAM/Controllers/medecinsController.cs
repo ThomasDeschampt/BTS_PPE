@@ -27,6 +27,7 @@ namespace Back_PPE_SLAM.Controllers
         }
 
         // GET: api/medecins/5
+        [Authentification]
         [ResponseType(typeof(medecin))]
         public async Task<IHttpActionResult> Getmedecin(int id)
         {
@@ -40,6 +41,7 @@ namespace Back_PPE_SLAM.Controllers
         }
 
         // PUT: api/medecins/5
+        [Authentification]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putmedecin(int id, medecin medecin)
         {
@@ -75,6 +77,7 @@ namespace Back_PPE_SLAM.Controllers
         }
 
         // POST: api/medecins
+        [Authentification]
         [ResponseType(typeof(medecin))]
         public async Task<IHttpActionResult> Postmedecin(medecin medecin)
         {
@@ -90,6 +93,7 @@ namespace Back_PPE_SLAM.Controllers
         }
 
         // DELETE: api/medecins/5
+        [Authentification]
         [ResponseType(typeof(medecin))]
         public async Task<IHttpActionResult> Deletemedecin(int id)
         {

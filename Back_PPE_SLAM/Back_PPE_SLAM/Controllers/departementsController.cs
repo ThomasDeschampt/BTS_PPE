@@ -37,40 +37,40 @@ namespace Back_PPE_SLAM.Controllers
             return Ok(departement);
         }
 
-        //PUT: api/departements/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Putdepartement(int id, departement departement)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        ////PUT: api/departements/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> Putdepartement(int id, departement departement)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != departement.id_dep)
-            {
-                return BadRequest();
-            }
+        //    if (id != departement.id_dep)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(departement).State = EntityState.Modified;
+        //    db.Entry(departement).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!departementExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!departementExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/departements
         //[ResponseType(typeof(departement))]
