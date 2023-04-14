@@ -259,6 +259,7 @@
     <Content Include="Views\specialites\Index.cshtml" />
     <Content Include="Views\departements\Details.cshtml" />
     <Content Include="Views\departements\Index.cshtml" />
+    <Content Include="Views\medecins\Recherche.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

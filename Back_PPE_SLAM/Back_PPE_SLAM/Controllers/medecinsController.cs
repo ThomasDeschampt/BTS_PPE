@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Mvc;
 using Model;
 using ORM_PPE_SLAM;
 
@@ -39,6 +40,28 @@ namespace Back_PPE_SLAM.Controllers
 
             return Ok(medecin);
         }
+
+        // GET: api/medecins?nom=nom_med
+        [Authentification]
+        public IHttpActionResult GetMedecinsByNom(string nom)
+        {
+            if (nom.Length < 2)
+            {
+                return BadRequest("Le nom doit contenir au moins 2 caractères");
+            }
+
+            var medecins = db.medecins
+                .Where(m => m.nom_med.Contains(nom))
+                .ToList();
+
+            if (medecins.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(medecins);
+        }
+
 
         // PUT: api/medecins/5
         [Authentification]

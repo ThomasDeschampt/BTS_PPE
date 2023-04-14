@@ -33,6 +33,10 @@ namespace Model
         [Column("_FK_id_dep")]
         public int C_FK_id_dep { get; set; }
 
+        //recherche par nom
+        [NotMapped]
+        public string nom { get; set; }
+
         public virtual departement departement { get; set; }
 
         public virtual specialite specialite { get; set; }

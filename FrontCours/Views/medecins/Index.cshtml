@@ -6,6 +6,13 @@
 
 <h2>Liste des médecins :</h2>
 
+@using (Html.BeginForm("SearchMedecins", "medecins", FormMethod.Get))
+{
+    <input type="text" name="nom" placeholder="Nom du médecin">
+    <button type="submit">Rechercher</button>
+}
+
+
 <p>
     @Html.ActionLink("Ajouter", "Create")
 </p>
@@ -32,32 +39,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.departement.nom_dep)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.specialite.lib_spe)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nom_med)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.pre_med)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.adr_med)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tel_med)
-        </td>
-        <td>
-            @Html.ActionLink("Modifier", "Edit", new { id=item.id_med }) |
-            @Html.ActionLink("Détails", "Details", new { id=item.id_med }) |
-            @Html.ActionLink("Supprimer", "Delete", new { id=item.id_med })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.departement.nom_dep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.specialite.lib_spe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nom_med)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pre_med)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.adr_med)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tel_med)
+            </td>
+            <td>
+                @Html.ActionLink("Modifier", "Edit", new { id = item.id_med }) |
+                @Html.ActionLink("Détails", "Details", new { id = item.id_med }) |
+                @Html.ActionLink("Supprimer", "Delete", new { id = item.id_med })
+            </td>
+        </tr>
+    }
 
 </table>

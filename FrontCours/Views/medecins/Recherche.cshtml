@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Model.medecin>
+
+@{
+    ViewBag.Title = "Résultats de la recherche";
+}
+
+<h2>Résultats de la recherche</h2>
+
+@if (!Model.Any())
+{
+    <p>Aucun résultat pour votre recherche</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Spécialité</th>
+                <th>Département</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var medecin in Model)
+            {
+                <tr>
+                    <td>@medecin.nom_med</td>
+                    <td>@medecin.pre_med</td>
+                    <td>@medecin.adr_med</td>
+                    <td>@medecin.tel_med</td>
+                    <td>@(medecin.specialite?.lib_spe ?? "")</td>
+                    <td>@medecin.departement.nom_dep (@medecin.departement.reg_dep)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

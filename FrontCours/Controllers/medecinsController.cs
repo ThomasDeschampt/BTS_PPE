@@ -71,6 +71,42 @@ namespace FrontCours.Controllers
 
         }
 
+        // GET: medecins
+        public async Task<ActionResult> SearchMedecins(string nom)
+        {
+            // url de l'api
+            string url = "https://localhost:44345/api/medecins?nom=" + nom;
+
+
+            using (HttpClient client = new HttpClient())
+            {
+
+                if (string.IsNullOrEmpty(nom) || nom.Length < 2)
+                {
+                    return HttpNotFound();
+                }
+
+                client.DefaultRequestHeaders.Add("token", "123456789");
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+
+                    if (!string.IsNullOrEmpty(content))
+                    {
+                        var liste = JsonConvert.DeserializeObject<IEnumerable<medecin>>(content);
+                        return View("Index", liste);
+                    }
+                }
+
+                throw new Exception();
+
+            }
+        }
+
+
+
         // GET: medecins/Create
         [Authorize]
         public ActionResult Create()
