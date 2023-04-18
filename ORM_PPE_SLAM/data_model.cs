@@ -16,6 +16,7 @@ namespace ORM_PPE_SLAM
         public virtual DbSet<departement> departements { get; set; }
         public virtual DbSet<medecin> medecins { get; set; }
         public virtual DbSet<specialite> specialites { get; set; }
+        public virtual DbSet<user> users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
