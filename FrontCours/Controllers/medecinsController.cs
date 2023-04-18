@@ -18,7 +18,7 @@ namespace FrontCours.Controllers
 {
     public class medecinsController : Controller
     {
-        private data_model db = new data_model();
+        //private data_model db = new data_model();
 
         // GET: medecins
         public async Task<ActionResult> Index()
@@ -64,8 +64,6 @@ namespace FrontCours.Controllers
                     throw new Exception();
 
                 var medecin = await response.Content.ReadAsAsync<medecin>();
-                ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
-                ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
                 return View(medecin);
             }
 
@@ -109,11 +107,27 @@ namespace FrontCours.Controllers
 
         // GET: medecins/Create
         [Authorize]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep");
-            ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe");
-            return View();
+            string url_dep = "https://localhost:44345/api/departements";
+            string url_spe = "https://localhost:44345/api/specialites";
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response_dep = await client.GetAsync(url_dep);
+                HttpResponseMessage response_spe = await client.GetAsync(url_spe);
+
+
+                //si erreur, on propage une exception
+                if (!response_dep.IsSuccessStatusCode || !response_spe.IsSuccessStatusCode)
+                    throw new Exception();
+
+                var dep = response_dep.Content.ReadAsAsync<IEnumerable<departement>>().Result.ToList();
+                var spe = response_spe.Content.ReadAsAsync<IEnumerable<specialite>>().Result.ToList();
+
+                ViewBag.C_FK_id_dep = new SelectList(dep, "id_dep", "nom_dep");
+                ViewBag.C_FK_id_spe = new SelectList(spe, "id_spe", "lib_spe");
+                return View();
+            }
         }
 
         // POST: medecins/Create
@@ -141,9 +155,8 @@ namespace FrontCours.Controllers
                             throw new Exception();
                         }
 
+
                         reponse.EnsureSuccessStatusCode();
-                        ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
-                        ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
                         return RedirectToAction("Index");
                     }
                 }
@@ -163,18 +176,25 @@ namespace FrontCours.Controllers
 
             // url de l'api
             string url = "https://localhost:44345/api/medecins/" + id;
+            string url_dep = "https://localhost:44345/api/departements";
+            string url_spe = "https://localhost:44345/api/specialites";
 
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("token", "123456789");
                 HttpResponseMessage response = await client.GetAsync(url);
+                HttpResponseMessage response_dep = await client.GetAsync(url_dep);
+                HttpResponseMessage response_spe = await client.GetAsync(url_spe);
 
-                if (!response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode || !response_dep.IsSuccessStatusCode || !response_spe.IsSuccessStatusCode)
                     throw new Exception();
 
+                var dep = response_dep.Content.ReadAsAsync<IEnumerable<departement>>().Result.ToList();
+                var spe = response_spe.Content.ReadAsAsync<IEnumerable<specialite>>().Result.ToList();
+
                 var medecin = await response.Content.ReadAsAsync<medecin>();
-                ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
-                ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
+                ViewBag.C_FK_id_dep = new SelectList(dep, "id_dep", "nom_dep", medecin.C_FK_id_dep);
+                ViewBag.C_FK_id_spe = new SelectList(spe, "id_spe", "lib_spe", medecin.C_FK_id_spe);
                 return View(medecin);
             }
 
@@ -202,8 +222,6 @@ namespace FrontCours.Controllers
                         throw new Exception();
 
                     send.EnsureSuccessStatusCode();
-                    ViewBag.C_FK_id_dep = new SelectList(db.departements, "id_dep", "nom_dep", medecin.C_FK_id_dep);
-                    ViewBag.C_FK_id_spe = new SelectList(db.specialites, "id_spe", "lib_spe", medecin.C_FK_id_spe);
 
                     return RedirectToAction("Index");
                     
@@ -238,7 +256,7 @@ namespace FrontCours.Controllers
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
             string url = "https://localhost:44345/api/medecins/" + id;
 
@@ -256,13 +274,13 @@ namespace FrontCours.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

@@ -17,7 +17,7 @@ namespace FrontCours.Controllers
 {
     public class specialitesController : Controller
     {
-        private data_model db = new data_model();
+       //private data_model db = new data_model();
 
         // GET: specialites
         public async Task<ActionResult> Index()
@@ -180,13 +180,13 @@ namespace FrontCours.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }
