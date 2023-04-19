@@ -11,6 +11,7 @@ Le code de cette réalisation est contenue dans les dossiers :
 -	Back_PPE_SLAM : qui comporte tous les contrôleur et donc les API <br>
 -	Model : qui décrit les tables de la base de données <br>
 -	ORM_PPE_SLAM : qui fait le lien entre la base de données <br>
+- BDD : qui comporte le fichier Looping et le script de la base de données <br>
 
 
 # Réalisation 2 : 
