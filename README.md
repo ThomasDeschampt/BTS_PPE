@@ -17,6 +17,6 @@ Le code de cette réalisation est contenue dans les dossiers :
 <br>
 Pour la seconde réalisation de l'épreuve E5 du BTS SIO, j'ai une nouvelle fois travaillé sur un projet pour répondre aux besoins du laboratoire GSB. Cette fois-ci, l'objectif est de créer une application Web faisant appel au Service créé dans la première réalisation. L'intérêt sera donc d'intéragir et de visualiser les données en temps réel. Ainsi, on pourra par exemple retrouver des listes de médecins en fonction de leurs noms ou localisations. L'application se devra donc d'être privée et sécurisée pour garantir la sécurisation des données.
 Pour construire ce projet, j'ai utilisé le langage C# avec le framework .NET ainsi que les langages HTML, CSS et JavaScript pour l'aspect visuel de l'application.
-Le code de cette réalisation est contenue dans le dossiers: 
+Le code de cette réalisation est contenue dans le dossiers: <br>
 -	FrontCours : qui regrouppe l’ensemble des fichiers de la solution web <br>
 
