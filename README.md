@@ -3,14 +3,14 @@ Dans ce dépôt, vous pouvez retrouvez mes deux réalisations professionnelles r
 <hr>
 
 # Réalisation 1 : 
-<br>
+
 Lors de cette première réalisation de l'épreuve E5 du BTS SIO, j'ai travaillé sur un projet répondant aux attentes du laboratoire GSB dans un contexte professionnel. En effet, pour faciliter la réalisation de ses activités, le laboratoire souhaite mettre en place un Web Service qui lui permettra de visualiser et de traiter les éléments de sa future base de données. Pour répondre à cette demande, j'ai tout d'abord réalisé une base de données puis un Web-Service Back-End qui permet d'intéragir avec la base.
 Pour mener ce projet, j'ai utilisé le langage SQL et le logiciel Looping pour la mise en place de la base de données ainsi que C# et les frameworks .NET et Entity Framework pour le Web-Service.
 Le code de cette réalisation est contenue dans les dossiers : 
--	BDD : qui comporte le script pour créer la base de données
--	Back_PPE_SLAM : qui comporte tous les contrôleur et donc les API
--	Model : qui décrit les tables de la base de données
--	ORM_PPE_SLAM : qui fait le lien entre la base de données
+-	BDD : qui comporte le script pour créer la base de données <br>
+-	Back_PPE_SLAM : qui comporte tous les contrôleur et donc les API <br>
+-	Model : qui décrit les tables de la base de données <br>
+-	ORM_PPE_SLAM : qui fait le lien entre la base de données <br>
 
 
 # Réalisation 2 : 
