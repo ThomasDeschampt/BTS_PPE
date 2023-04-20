@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>specialite</h4>
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -33,3 +33,11 @@
 <div>
     @Html.ActionLink("Retour", "Index")
 </div>
+
+<style>
+    h2 {
+        font-size: xx-large;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+</style>

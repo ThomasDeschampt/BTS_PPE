@@ -24,7 +24,6 @@ namespace FrontCours.Controllers
 
             using(HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("token", "123456789");
                 HttpResponseMessage response = await client.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
@@ -47,7 +46,6 @@ namespace FrontCours.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                //client.DefaultRequestHeaders.Add("token", "123456789");
                 HttpResponseMessage response = await client.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)

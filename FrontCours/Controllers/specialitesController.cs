@@ -12,6 +12,7 @@ using ORM_PPE_SLAM;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
+using System.Net.Http.Headers;
 
 namespace FrontCours.Controllers
 {
@@ -27,7 +28,6 @@ namespace FrontCours.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("token", "123456789");
                 HttpResponseMessage response = await client.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
@@ -50,7 +50,6 @@ namespace FrontCours.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                //client.DefaultRequestHeaders.Add("token", "123456789");
                 HttpResponseMessage response = await client.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
@@ -83,7 +82,9 @@ namespace FrontCours.Controllers
                 string json = JsonConvert.SerializeObject(specialite);
                 using (HttpClient client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Add("token", "123456789");
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + ReadToken());
+
                     using (var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:44345/api/specialites"))
                     {
                         request.Content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -147,7 +148,8 @@ namespace FrontCours.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("token", "123456789");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + ReadToken());
 
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (!response.IsSuccessStatusCode)
@@ -171,7 +173,9 @@ namespace FrontCours.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("token", "123456789");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + ReadToken());
+
                 HttpResponseMessage response = await client.DeleteAsync(url);
 
                 if (!response.IsSuccessStatusCode)
@@ -188,5 +192,21 @@ namespace FrontCours.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+
+        private string ReadToken()
+        {
+            string token = string.Empty;
+
+            try
+            {
+                string fileName = @"C:\tmp\token.txt";
+                token = System.IO.File.ReadAllText(fileName);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return token;
+        }
     }
 }

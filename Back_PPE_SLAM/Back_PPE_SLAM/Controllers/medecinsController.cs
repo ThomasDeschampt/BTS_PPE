@@ -21,14 +21,12 @@ namespace Back_PPE_SLAM.Controllers
 
         // GET: api/medecins
         // en utilsant l'authentification avec le token
-        [Authentification]
         public IQueryable<medecin> Getmedecins()
         {
             return db.medecins;
         }
 
         // GET: api/medecins/5
-        [Authentification]
         [ResponseType(typeof(medecin))]
         public async Task<IHttpActionResult> Getmedecin(int id)
         {
@@ -42,13 +40,8 @@ namespace Back_PPE_SLAM.Controllers
         }
 
         // GET: api/medecins?nom=nom_med
-        [Authentification]
         public IHttpActionResult GetMedecinsByNom(string nom)
         {
-            if (nom.Length < 2)
-            {
-                return BadRequest("Le nom doit contenir au moins 2 caractères");
-            }
 
             var medecins = db.medecins
                 .Where(m => m.nom_med.Contains(nom))
@@ -64,7 +57,7 @@ namespace Back_PPE_SLAM.Controllers
 
 
         // PUT: api/medecins/5
-        [Authentification]
+        [System.Web.Http.Authorize]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putmedecin(int id, medecin medecin)
         {
@@ -100,7 +93,7 @@ namespace Back_PPE_SLAM.Controllers
         }
 
         // POST: api/medecins
-        [Authentification]
+        [System.Web.Http.Authorize]
         [ResponseType(typeof(medecin))]
         public async Task<IHttpActionResult> Postmedecin(medecin medecin)
         {
@@ -116,7 +109,7 @@ namespace Back_PPE_SLAM.Controllers
         }
 
         // DELETE: api/medecins/5
-        [Authentification]
+        [System.Web.Http.Authorize]
         [ResponseType(typeof(medecin))]
         public async Task<IHttpActionResult> Deletemedecin(int id)
         {

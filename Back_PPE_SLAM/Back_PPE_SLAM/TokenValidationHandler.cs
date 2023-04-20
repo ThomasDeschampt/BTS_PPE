@@ -48,8 +48,6 @@ namespace Back_GSB
             string token;
 
 
-
-
             //on cherche s'il y a un token dans le header
             if (!RetrieveToken(request, out token))
             {
@@ -57,25 +55,18 @@ namespace Back_GSB
                 return base.SendAsync(request, cancellationToken);
             }
 
-
-
             //token envoyé dans le header
-
-
-
             try
             {
-                const string secret = "LeSoleilEtLaMereQueDemandeLePeuple";
-
-
+                const string secret = "IciCaHashLesTokens";
 
                 var now = DateTime.UtcNow;
                 var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.Default.GetBytes(secret));
 
-
-
                 SecurityToken securityToken;
                 JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+
+                //Vérifier si le token est valide
                 TokenValidationParameters validationParameters = new TokenValidationParameters()
                 {
                     ValidAudience = "https://localhost:44345",
@@ -102,7 +93,6 @@ namespace Back_GSB
         }
 
 
-
         public bool LifetimeValidator(DateTime? notBefore, DateTime? expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
         {
             if (expires != null)
@@ -111,8 +101,6 @@ namespace Back_GSB
             }
             return false;
         }
-
-
 
     }
 }
