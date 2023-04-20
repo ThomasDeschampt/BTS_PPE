@@ -6,7 +6,7 @@
 
 <h2>Liste des médecins :</h2>
 
-@using (Html.BeginForm("SearchMedecins", "medecins", FormMethod.Get))
+@using (Html.BeginForm("Index", "medecins", FormMethod.Get))
 {
     <input type="text" name="nom" placeholder="Nom du médecin">
     <button type="submit">Rechercher</button>

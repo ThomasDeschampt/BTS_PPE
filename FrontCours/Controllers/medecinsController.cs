@@ -13,6 +13,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
 using FrontCours.Models;
+using System.Net.Http.Headers;
 
 namespace FrontCours.Controllers
 {
@@ -21,25 +22,43 @@ namespace FrontCours.Controllers
         //private data_model db = new data_model();
 
         // GET: medecins
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string nom)
         {
+            var liste = new List<medecin>();
             // url de l'api
-            string url = "https://localhost:44345/api/medecins";
-
-            using (HttpClient client = new HttpClient())
+            if (!string.IsNullOrEmpty(nom) && nom.Length >= 2)
             {
-                client.DefaultRequestHeaders.Add("token", "123456789");
-                HttpResponseMessage response = await client.GetAsync(url);
+                string url = "https://localhost:44345/api/medecins?nom=" + nom;
 
-                if (!response.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    throw new Exception();
+                    var response = client.GetAsync(url).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                        liste = response.Content.ReadAsAsync<List<medecin>>().Result;
+                    }
                 }
-
-                var liste = await response.Content.ReadAsAsync<IEnumerable<medecin>>();
-
                 return View(liste);
+            }
+            else
+            {
+                // url de l'api
+                string url = "https://localhost:44345/api/medecins";
 
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new Exception();
+                    }
+
+                    liste = await response.Content.ReadAsAsync<List<medecin>>();
+                }
+                return View(liste);
             }
         }
 
@@ -57,7 +76,6 @@ namespace FrontCours.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("token", "123456789");
                 HttpResponseMessage response = await client.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
@@ -69,42 +87,6 @@ namespace FrontCours.Controllers
 
         }
 
-        // GET: medecins
-        public async Task<ActionResult> SearchMedecins(string nom)
-        {
-            // url de l'api
-            string url = "https://localhost:44345/api/medecins?nom=" + nom;
-
-
-            using (HttpClient client = new HttpClient())
-            {
-
-                if (string.IsNullOrEmpty(nom) || nom.Length < 2)
-                {
-                    return HttpNotFound();
-                }
-
-                client.DefaultRequestHeaders.Add("token", "123456789");
-                HttpResponseMessage response = await client.GetAsync(url);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-
-                    if (!string.IsNullOrEmpty(content))
-                    {
-                        var liste = JsonConvert.DeserializeObject<IEnumerable<medecin>>(content);
-                        return View("Index", liste);
-                    }
-                }
-
-                throw new Exception();
-
-            }
-        }
-
-
-
         // GET: medecins/Create
         [Authorize]
         public async Task<ActionResult> Create()
@@ -113,6 +95,9 @@ namespace FrontCours.Controllers
             string url_spe = "https://localhost:44345/api/specialites";
             using (HttpClient client = new HttpClient())
             {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + ReadToken());
+
                 HttpResponseMessage response_dep = await client.GetAsync(url_dep);
                 HttpResponseMessage response_spe = await client.GetAsync(url_spe);
 
@@ -143,7 +128,9 @@ namespace FrontCours.Controllers
 
                 using (HttpClient client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Add("token", "123456789");
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + ReadToken());
+
                     using (var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:44345/api/medecins"))
                     {
                         request.Content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -181,7 +168,9 @@ namespace FrontCours.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("token", "123456789");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + ReadToken());
+
                 HttpResponseMessage response = await client.GetAsync(url);
                 HttpResponseMessage response_dep = await client.GetAsync(url_dep);
                 HttpResponseMessage response_spe = await client.GetAsync(url_spe);
@@ -202,7 +191,7 @@ namespace FrontCours.Controllers
     
 
         // POST: medecins/Edit/5
-        // Pour vous protéger des attaques par survalidation, activez les propriétés spécifiques auxquelles vous souhaitez vous lier. Pour 
+        // Pour vous protéger des attaques par survalidation activez les propriétés spécifiques auxquelles vous souhaitez vous lier. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -214,7 +203,9 @@ namespace FrontCours.Controllers
                 
                 using (HttpClient client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Add("token", "123456789");
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + ReadToken());
+
                     HttpContent cont = new StringContent(json, Encoding.UTF8, "application/json");
 
                     var send = await client.PutAsync("https://localhost:44345/api/medecins/" + medecin.id_med, cont).ConfigureAwait(false);
@@ -241,7 +232,8 @@ namespace FrontCours.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("token", "123456789");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + ReadToken());
 
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (!response.IsSuccessStatusCode)
@@ -265,7 +257,9 @@ namespace FrontCours.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("token", "123456789");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer "  + ReadToken());
+
                 HttpResponseMessage response = await client.DeleteAsync(url);
 
                 if (!response.IsSuccessStatusCode)
@@ -282,5 +276,21 @@ namespace FrontCours.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+
+        private string ReadToken()
+        { 
+            string token = string.Empty;
+
+            try
+            {
+                string fileName = @"C:\tmp\token.txt";
+                token = System.IO.File.ReadAllText(fileName);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return token;
+        }
     }
 }
