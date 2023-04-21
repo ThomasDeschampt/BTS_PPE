@@ -2,20 +2,119 @@
     ViewBag.Title = "Home Page";
 }
 
-<div>
-        <h1>Bienvenue sur le site de Galaxy Swiss Bourdin (GSB) !</h1>
+<div class="containerr">
+    <h1 class="title">Bienvenue sur GSB Web Service !</h1>
+    <br />
+    <br />
 
-        <p>Nous sommes une entreprise pharmaceutique qui travaille avec des professionnels de santé pour offrir les meilleurs produits à nos patients.</p>
-        <p>GSB est heureux de vous présenter notre nouveau service web, qui permet à nos visiteurs médicaux de présenter nos nouveaux produits aux 
-    médecins généralistes. Ce service est accessible en ligne, et vous pouvez vous connecter avec un username/password unique. Les informations exposées 
-    incluent simplement les nom, prénom, adresse, téléphone et spécialité médicale complémentaire des médecins généralistes.</p>
-        <p>Étant fiers de travailler avec des professionnels de santé pour offrir des produits innovants et de qualité, et nous sommes convaincus
-    que ce nouveau service sera un outil précieux pour notre entreprise et nos clients.</p>
-    <img src="~/Src/logo.png" height="200px" style="display:block; margin:auto" />
+    <div class="contentt">
+        <div class="text">
+            <p>
+                Nous sommes une entreprise pharmaceutique qui travaille avec des professionnels de santé pour offrir les meilleurs produits à
+                nos patients. Nous mettons l'innovation et la qualité au cœur de notre stratégie pour répondre aux besoins de nos patients.
+            </p>
+            <p>
+                Aujourd’hui c’est avec plaisir que nous vous présentons notre nouveau service web. Ce service accessible en ligne vous permettra
+                d’accéder à des nombreuses informations sur nos médecins partenaires.
+            </p>
+            <p>
+                Nous sommes convaincus que ce nouveau service sera un outil précieux pour notre entreprise et nos clients qui facilitera
+                l’innovation et le développement de nouveaux médicaments pour améliorer la santé et le bien-être de chacun.
+            </p>
+        </div>
+        <div class="image">
+            <img src="~/Src/logo.png" alt="Logo de Galaxy Swiss Bourdin" height="200px">
+        </div>
+    </div>
 </div>
+
+<div class="container">
+    <h2>Fonctionnalités :</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="feature-block">
+                <i class="fas fa-user-md"></i>
+                <h3>Gestion des spécialités</h3>
+                <i class="fas fa-user-md"></i>
+                <p>Permet la création et la suppression des spécialités médicales.</p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="feature-block">
+                <i class="fas fa-user-md"></i>
+                <h3>Gestion des médecins</h3>
+                <p>Permet la création, la modification et la suppression des informations d'un médecins.</p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="feature-block">
+                <i class="fas fa-search"></i>
+                <h3>Téléchargement de données</h3>
+                <p>Permet de télécharger les données des médecins, spécialités et départements au format JSON.</p>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="feature-block">
+                <i class="fas fa-search"></i>
+                <h3>Recherche par département</h3>
+                <p>Permet de rechercher des médecins en fonction du département dans lequel il travaille.</p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="feature-block">
+                <i class="fas fa-search"></i>
+                <h3>Recherche par nom</h3>
+                <p>Permet de rechercher des médecins en fonction de leur nom de famille.</p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="feature-block">
+                <i class="fas fa-download"></i>
+                <h3>Recherche par spécialité</h3>
+                <p>Permet de rechercher des médecins en fonction de leur spécialité médicale.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+
+    h2 {
+        font-size: xx-large;
+        text-decoration: underline;
+    }
+
+    .containerr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contentt {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .text {
+        width: 60%;
+        margin-right: 1em;
+    }
+
+    .image {
+        width: 35%;
+    }
+
+    .col-sm-4 {
+        border-right: 1px solid #ccc;
     }
 </style>
