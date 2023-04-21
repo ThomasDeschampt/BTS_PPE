@@ -30,7 +30,7 @@
 
 @if (Model.medecins.Count != 0)
 {
-    <p>Liste des médecins du départements :</p>
+    <p id="phrase">Liste des médecins du départements :</p>
     <table class="table">
         <tr>
             <th>
@@ -117,7 +117,12 @@
         transition: background-color 0.3s ease;
     }
 
-        .action-link:hover {
+    .action-link:hover {
             background-color: #3e8e41;
-        }
+    }
+
+    #phrase {
+        text-decoration: underline;
+    }
+
 </style>
