@@ -8,9 +8,9 @@
 
 <div>
     <hr />
-    <dl class="dl-horizontal">
+    <dl>
         <dt>
-            @Html.DisplayName("Département")
+            @Html.DisplayName("Département :")
         </dt>
 
         <dd>
@@ -18,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Spécialité")
+            @Html.DisplayName("Spécialité :")
         </dt>
 
         <dd>
@@ -26,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Nom")
+            @Html.DisplayName("Nom :")
         </dt>
 
         <dd>
@@ -34,7 +34,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Prénom")
+            @Html.DisplayName("Prénom :")
         </dt>
 
         <dd>
@@ -50,7 +50,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Téléphone")
+            @Html.DisplayName("Téléphone :")
         </dt>
 
         <dd>
@@ -69,5 +69,54 @@
         font-size: xx-large;
         text-decoration: underline;
         font-weight: bold;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .action-link {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        margin-bottom: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .action-link:hover {
+            background-color: #3e8e41;
+        }
+
+    #phrase {
+        text-decoration: underline;
+        font-size: x-large;
+    }
+
+    dt {
+        text-align: left;
+        align-content: start;
+        font-weight: bold;
+        font-size: large;
+        text-decoration: underline;
     }
 </style>

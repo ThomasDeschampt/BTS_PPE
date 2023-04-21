@@ -9,9 +9,9 @@
 <div>
 
     <hr />
-    <dl class="dl-horizontal">
+    <dl>
         <dt>
-            @Html.DisplayName("Libellé")
+            @Html.DisplayName("Libellé :")
         </dt>
 
         <dd>
@@ -23,7 +23,7 @@
 
 @if (Model.medecins.Count != 0)
 {
-<p>Liste des médecins de la spécialité :</p>
+<p id="phrase">Liste des médecins de la spécialité :</p>
 <table class="table">
     <tr>
         <th>
@@ -113,4 +113,17 @@
         .action-link:hover {
             background-color: #3e8e41;
         }
+
+    #phrase {
+        text-decoration: underline;
+        font-size: x-large;
+    }
+
+    dt {
+        text-align: left;
+        align-content: start;
+        font-weight: bold;
+        font-size: large;
+        text-decoration: underline;
+    }
 </style>
