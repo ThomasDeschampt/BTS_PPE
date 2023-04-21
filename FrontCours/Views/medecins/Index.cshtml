@@ -16,59 +16,66 @@
 <p>
     @Html.ActionLink("Ajouter", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Département")
-        </th>
-        <th>
-            @Html.DisplayName("Spécialité")
-        </th>
-        <th>
-            @Html.DisplayName("Nom")
-        </th>
-        <th>
-            @Html.DisplayName("Prénom")
-        </th>
-        <th>
-            @Html.DisplayName("Adresse")
-        </th>
-        <th>
-            @Html.DisplayName("Téléphone")
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
+@if (Model != null && Model.Any())
+{
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.departement.nom_dep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.specialite.lib_spe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nom_med)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.pre_med)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.adr_med)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tel_med)
-            </td>
-            <td>
-                @Html.ActionLink("Modifier", "Edit", new { id = item.id_med }) |
-                @Html.ActionLink("Détails", "Details", new { id = item.id_med }) |
-                @Html.ActionLink("Supprimer", "Delete", new { id = item.id_med })
-            </td>
+            <th>
+                @Html.DisplayName("Département")
+            </th>
+            <th>
+                @Html.DisplayName("Spécialité")
+            </th>
+            <th>
+                @Html.DisplayName("Nom")
+            </th>
+            <th>
+                @Html.DisplayName("Prénom")
+            </th>
+            <th>
+                @Html.DisplayName("Adresse")
+            </th>
+            <th>
+                @Html.DisplayName("Téléphone")
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.departement.nom_dep)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.specialite.lib_spe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nom_med)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pre_med)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.adr_med)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tel_med)
+                </td>
+                <td>
+                    @Html.ActionLink("Modifier", "Edit", new { id = item.id_med }) |
+                    @Html.ActionLink("Détails", "Details", new { id = item.id_med }) |
+                    @Html.ActionLink("Supprimer", "Delete", new { id = item.id_med })
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p id="phrase">Aucun médecin trouvé.</p>
+}
 
 <style>
     body {
@@ -106,9 +113,9 @@
         transition: background-color 0.3s ease;
     }
 
-    button[type="submit"]:hover {
+        button[type="submit"]:hover {
             background-color: #3e8e41;
-    }
+        }
 
     .table {
         width: 100%;
@@ -142,7 +149,7 @@
         transition: background-color 0.3s ease;
     }
 
-    .action-link:hover {
-        background-color: #3e8e41;
-    }
+        .action-link:hover {
+            background-color: #3e8e41;
+        }
 </style>
