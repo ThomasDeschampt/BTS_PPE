@@ -8,7 +8,7 @@
 
 <div>
     <hr />
-    <dl class="dl-horizontal">
+    <dl>
         <dt>
             @Html.DisplayName("Département")
         </dt>
@@ -18,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Spécialité")
+            @Html.DisplayName("Spécialité :")
         </dt>
 
         <dd>
@@ -26,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Nom")
+            @Html.DisplayName("Nom :")
         </dt>
 
         <dd>
@@ -34,7 +34,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Prénom")
+            @Html.DisplayName("Prénom :")
         </dt>
 
         <dd>
@@ -42,7 +42,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Adresse")
+            @Html.DisplayName("Adresse :")
         </dt>
 
         <dd>
@@ -50,7 +50,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Téléphone")
+            @Html.DisplayName("Téléphone :")
         </dt>
 
         <dd>
@@ -70,9 +70,23 @@
 </div>
 
 <style>
+    body{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+
     h2 {
         font-size: xx-large;
         text-decoration: underline;
         font-weight: bold;
     }
+
+    dt {
+        text-align: left;
+        align-content: start;
+        font-weight: bold;
+        font-size: large;
+        text-decoration: underline;
+        margin-top: 16px;
+    }
+
 </style>
