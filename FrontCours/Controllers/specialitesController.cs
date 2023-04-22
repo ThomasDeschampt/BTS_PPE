@@ -63,6 +63,26 @@ namespace FrontCours.Controllers
             }
         }
 
+        //GET : specialites/Downaload
+        public FileContentResult DownloadJson()
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44345/api/specialites/");
+            var response = client.GetAsync(client.BaseAddress).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = response.Content.ReadAsStringAsync().Result;
+                var departements = JsonConvert.DeserializeObject<IEnumerable<specialite>>(json);
+                var bytes = Encoding.ASCII.GetBytes(json);
+                return File(bytes, "application/json", "liste_specialites.json");
+            }
+            else
+            {
+                throw new Exception("Erreur lors de la récupération des données de la base de données.");
+            }
+        }
+
         // GET: specialites/Create
         [Authorize]
         public ActionResult Create()

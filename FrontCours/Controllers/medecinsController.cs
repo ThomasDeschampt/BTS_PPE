@@ -87,6 +87,26 @@ namespace FrontCours.Controllers
 
         }
 
+        //GET : medecins/Downaload
+        public FileContentResult DownloadJson()
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44345/api/medecins/");
+            var response = client.GetAsync(client.BaseAddress).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = response.Content.ReadAsStringAsync().Result;
+                var departements = JsonConvert.DeserializeObject<IEnumerable<medecin>>(json);
+                var bytes = Encoding.ASCII.GetBytes(json);
+                return File(bytes, "application/json", "liste_medecins.json");
+            }
+            else
+            {
+                throw new Exception("Erreur lors de la récupération des données de la base de données.");
+            }
+        }
+
         // GET: medecins/Create
         [Authorize]
         public async Task<ActionResult> Create()

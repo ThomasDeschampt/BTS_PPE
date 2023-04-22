@@ -10,32 +10,37 @@ using System.Web.Mvc;
 using Model;
 using ORM_PPE_SLAM;
 using System.Net.Http;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using System.IO;
+using System.Text;
+using System.Diagnostics;
 
 namespace FrontCours.Controllers
 {
     public class departementsController : Controller
     {
 
-        // GET: departements
-        public async Task<ActionResult> Index()
-        {
-            // url de l'api
-            string url = "https://localhost:44345/api/departements";
-
-            using(HttpClient client = new HttpClient())
+            // GET: departements
+            public async Task<ActionResult> Index()
             {
-                HttpResponseMessage response = await client.GetAsync(url);
+                // url de l'api
+                string url = "https://localhost:44345/api/departements";
 
-                if (!response.IsSuccessStatusCode)
+                using(HttpClient client = new HttpClient())
                 {
-                    throw new Exception();
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new Exception();
+                    }
+
+                    var liste = await response.Content.ReadAsAsync<IEnumerable<departement>>();
+
+                    return View(liste);
+
                 }
-
-                var liste = await response.Content.ReadAsAsync<IEnumerable<departement>>();
-
-                return View(liste);
-
-            }
         }
 
         // GET: departements/Details/5
@@ -59,6 +64,28 @@ namespace FrontCours.Controllers
 
             }
         }
+
+        //GET : departements/Downaload
+        public FileContentResult DownloadJson()
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44345/api/departements/");
+            var response = client.GetAsync(client.BaseAddress).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = response.Content.ReadAsStringAsync().Result;
+                var departements = JsonConvert.DeserializeObject<IEnumerable<departement>>(json);
+                var bytes = Encoding.ASCII.GetBytes(json);
+                return File(bytes, "application/json", "liste_departements.json");
+            }
+            else
+            {
+                throw new Exception("Erreur lors de la récupération des données de la base de données.");
+            }
+        }
+
+
 
         //// GET: departements/Create
         //public ActionResult Create()

@@ -6,9 +6,10 @@
 
 <h2>Liste des départements :</h2>
 
+
 @*<p>
-    @Html.ActionLink("Ajouter", "Create")
-</p>*@
+        @Html.ActionLink("Ajouter", "Create")
+    </p>*@
 <table class="table">
     <tr>
         <th>
@@ -20,23 +21,26 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nom_dep)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.reg_dep)
-        </td>
-        <td>
-            @*@Html.ActionLink("Éditer", "Edit", new { id=item.id_dep }) |*@
-            @Html.ActionLink("Détails", "Details", new { id=item.id_dep })
-           @* @Html.ActionLink("Supprimer", "Delete", new { id=item.id_dep })*@
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nom_dep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reg_dep)
+            </td>
+            <td>
+                @*@Html.ActionLink("Éditer", "Edit", new { id=item.id_dep }) |*@
+                @Html.ActionLink("Détails", "Details", new { id = item.id_dep })
+                @* @Html.ActionLink("Supprimer", "Delete", new { id=item.id_dep })*@
+            </td>
+        </tr>
+    }
 
 </table>
+<a href="@Url.Action("DownloadJson")" class="btn btn-primary" download>Télécharger la liste au format JSON</a>
+
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
