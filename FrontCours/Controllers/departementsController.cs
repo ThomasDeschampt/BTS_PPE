@@ -81,7 +81,7 @@ namespace FrontCours.Controllers
             }
             else
             {
-                throw new Exception("Erreur lors de la récupération des données de la base de données.");
+                throw new Exception("Une erreur est survenue lors de la récupération des données");
             }
         }
 

@@ -105,15 +105,15 @@ namespace Back_GSB.Controllers
         {
             string fileName = @"C:\tmp\token.txt";
 
-            // Check if file already exists. If yes, delete it.     
+            // on supprime le fichier s'il existe deja   
             if (File.Exists(fileName))
                 File.Delete(fileName);
 
-            // Create a new file     
+            // on le cree   
             using (FileStream fs = File.Create(fileName))
             {
 
-                // Add some text to file    
+                // on insere le token dans le fichier   
                 Byte[] title = new UTF8Encoding(true).GetBytes(token);
                 fs.Write(title, 0, title.Length);
 
