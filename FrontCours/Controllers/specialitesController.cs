@@ -63,6 +63,25 @@ namespace FrontCours.Controllers
             }
         }
 
+        //GET: api/specialites/nb_med/5
+        //ajout d'une methode qui retourne le nombre de medecin par specialite
+
+        public async Task<ActionResult> Getnb_med(int? id)
+        {
+            // url de l'api
+            string url = "https://localhost:44345/api/specialites/nb_med/"+id;
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception();
+                }
+                var nb_med = await response.Content.ReadAsAsync<int>();
+                return View(nb_med);
+            }
+        }
+
         //GET : specialites/Downaload
         public FileContentResult DownloadJson()
         {

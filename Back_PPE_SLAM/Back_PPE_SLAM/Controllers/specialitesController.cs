@@ -19,9 +19,10 @@ namespace Back_PPE_SLAM.Controllers
         private data_model db = new data_model();
 
         // GET: api/specialites
-        public IQueryable<specialite> Getspecialites()
+        // ajout du trie par ordre alphabetique
+        public IQueryable<specialite> GetSpecialites()
         {
-            return db.specialites;
+            return db.specialites.OrderBy(s => s.lib_spe);
         }
 
         // GET: api/specialites/5
@@ -36,6 +37,20 @@ namespace Back_PPE_SLAM.Controllers
 
             return Ok(specialite);
         }
+
+        //GET: api/specialites/nb_med/5
+        //ajout d'une methode qui retourne le nombre de medecin par specialite
+        [Route("api/specialites/nb_med/{id}")]
+        public async Task<IHttpActionResult> Getnb_med(int id)
+        {
+            specialite specialite = await db.specialites.FindAsync(id);
+            if (specialite == null)
+            {
+                return NotFound();
+            }
+            return Ok(specialite.medecins.Count());
+        }
+
 
         // PUT: api/specialites/5
         [System.Web.Http.Authorize]
